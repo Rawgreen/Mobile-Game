@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class DrawRange : MonoBehaviour
 {
-    [SerializeField] private float radius = 4f;
-    [SerializeField] private int circleCorners = 360;
+    private float radius;
+    private int circleCorners;
 
     private LineRenderer line;
 
     private void Start()
     {
+        radius = GetComponent<CannonAttributes>().GetRadius();
+        circleCorners = GetComponent<CannonAttributes>().GetCircleCorners();
         if (line == null)
         {
             line = gameObject.GetComponent<LineRenderer>();

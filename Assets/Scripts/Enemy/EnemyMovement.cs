@@ -4,15 +4,13 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
-    [SerializeField] private float moveSpeed = 1f;
-    [SerializeField] private GameObject target = null;
+    [SerializeField] private GameObject target;
 
-    private Vector3 moveDirection;
-    private float rotationAngle;
-
+    private float moveSpeed;
 
     private void Start()
     {
+        moveSpeed = GetComponent<EnemyAttributes>().GetMoveSpeed();
         if (target == null)
         {
             target = GameObject.FindGameObjectWithTag("Player");
@@ -21,14 +19,24 @@ public class EnemyMovement : MonoBehaviour
 
     private void Update()
     {
-        moveDirection = target.transform.position - gameObject.transform.position;
-        moveDirection.Normalize();
+        Vector3 moveDirection = CalculateDirection(target.transform);
 
         // calculate rotation with atan2 and convert to degrees
-        rotationAngle = Mathf.Atan2(moveDirection.y, moveDirection.x) * Mathf.Rad2Deg - 90f;
+        float rotationAngle = CalculateAngle(moveDirection);
         Quaternion targetRotation = Quaternion.Euler(0, 0, rotationAngle);
 
+        // pass new values to transform
         gameObject.transform.rotation = targetRotation;
         gameObject.transform.position += moveDirection * moveSpeed * Time.deltaTime;
+    }
+
+    private Vector3 CalculateDirection(Transform target)
+    {
+        return target.position - gameObject.transform.position.normalized;
+    }
+
+    private float CalculateAngle(Vector3 direction)
+    {
+        return Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
     }
 }
