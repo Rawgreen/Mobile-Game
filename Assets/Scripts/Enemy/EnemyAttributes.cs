@@ -2,39 +2,65 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyAttributes : MonoBehaviour
+namespace Enemy
 {
-    [SerializeField] private int health = 10;
-    [SerializeField] private float moveSpeed = 0.33f;
-    [SerializeField] private int damage = 2;
-
-    public int GetHealth()
+    public class EnemyAttributes : MonoBehaviour
     {
-        return health;
-    }
+        [SerializeField, Range(1, 1000)] private int maxHealth = 10;
+        [SerializeField] private int tempHealth;
+        [SerializeField, Range(0.1f, 2.0f)] private float moveSpeed = 0.33f;
+        [SerializeField, Range(1, 5)] private int damage = 2;
+        [SerializeField, Range(1, 1000)] private int pointsWorth = 10;
+        [SerializeField, Range(1, 10000)] private int goldsWorth = 1;
 
-    public void SetHealth(int newHealth)
-    {
-        health = newHealth;
-    }
+        public void SetTempHealth(int health)
+        {
+            tempHealth = health;
+        }
 
-    public float GetMoveSpeed()
-    {
-        return moveSpeed;
-    }
+        public int GetTempHealth()
+        {
+            return tempHealth;
+        }
 
-    public void SetMoveSpeed(float newMoveSpeed)
-    {
-        moveSpeed = newMoveSpeed;
-    }
+        public int GetMaxHealth()
+        {
+            return maxHealth;
+        }
 
-    public int GetDamage()
-    {
-        return damage;
-    }
+        public void SetMaxHealth(int newHealth)
+        {
+            maxHealth = newHealth;
+        }
 
-    public void SetDamage(int newDamage)
-    {
-        damage = newDamage;
+        public float GetMoveSpeed()
+        {
+            return moveSpeed;
+        }
+
+        public void SetMoveSpeed(float newMoveSpeed)
+        {
+            moveSpeed = newMoveSpeed;
+        }
+
+        public int GetDamage()
+        {
+            return damage;
+        }
+
+        public void SetDamage(int newDamage)
+        {
+            damage = newDamage;
+        }
+
+        public int GetPointsWorth()
+        {
+            return pointsWorth;
+        }
+
+        public int GetGoldsWorth()
+        {
+            return goldsWorth;
+        }
     }
 }
