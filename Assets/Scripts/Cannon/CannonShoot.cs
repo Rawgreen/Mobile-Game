@@ -29,8 +29,6 @@ namespace Cannon
             GameObject closestEnemy = cannonManager.GetClosestEnemy();
             if (closestEnemy != null && canShoot)
             {
-                //TODO: Remove after testing
-                //Debug.Log("shooting speed: " + shootingSpeed);
                 StartCoroutine(AttackDelay());
                 canShoot = false;
             }

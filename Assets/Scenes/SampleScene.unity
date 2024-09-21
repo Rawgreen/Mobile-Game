@@ -219,6 +219,77 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 749912431883341213, guid: 51e832a632421874b84fae00215754af, type: 3}
   m_PrefabInstance: {fileID: 3915113354532610236}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &875169957
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 875169959}
+  - component: {fileID: 875169960}
+  - component: {fileID: 875169958}
+  m_Layer: 0
+  m_Name: EnemySpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &875169958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 875169957}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ef0abf9265d4624692144542c8ebe31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isSpawning: 1
+  spawnRate: 1
+  enemyPrefabs:
+  - {fileID: 1112929328801822778, guid: 8cfeb6444f8e70840aeeb95ed7482cf2, type: 3}
+  killTracker: 0
+  maxEnemiesAlive: 50
+  enemiesAlive: 0
+  score: 0
+  allTimeScore: 0
+  golds: 0
+  totalGoldsEarned: 0
+--- !u!4 &875169959
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 875169957}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.5, y: 5.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &875169960
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 875169957}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6b3854959fd1c94591fd47fbcb860e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  centerPoint: {fileID: 519420032}
+  radius: 6.5
+  rotationSpeed: 1
 --- !u!1 &2115647706
 GameObject:
   m_ObjectHideFlags: 0
@@ -232,7 +303,7 @@ GameObject:
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -248,10 +319,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92c2a527dd4ac294bbc44cac50891192, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  score: 0
-  killTracker: 0
-  golds: 0
-  totalGoldsEarned: 0
 --- !u!4 &2115647708
 Transform:
   m_ObjectHideFlags: 0
@@ -323,6 +390,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6789913828895178093, guid: 8cfeb6444f8e70840aeeb95ed7482cf2, type: 3}
+      propertyPath: maxHealth
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6789913828895178093, guid: 8cfeb6444f8e70840aeeb95ed7482cf2, type: 3}
+      propertyPath: moveSpeed
+      value: 0.1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -339,6 +414,14 @@ PrefabInstance:
     - target: {fileID: 749912431883341213, guid: 51e832a632421874b84fae00215754af, type: 3}
       propertyPath: m_Name
       value: Cannon
+      objectReference: {fileID: 0}
+    - target: {fileID: 2609017335658942475, guid: 51e832a632421874b84fae00215754af, type: 3}
+      propertyPath: radius
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2609017335658942475, guid: 51e832a632421874b84fae00215754af, type: 3}
+      propertyPath: projectileSpeed
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3454752054718161906, guid: 51e832a632421874b84fae00215754af, type: 3}
       propertyPath: m_LocalPosition.x
@@ -390,6 +473,7 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 2115647708}
+  - {fileID: 875169959}
   - {fileID: 519420032}
   - {fileID: 3915113354532610236}
   - {fileID: 490176814714732581}

@@ -6,14 +6,14 @@ namespace Cannon
 {
     public class CannonTakeDamage : MonoBehaviour
     {
-        private GameManager gameManager;
+        private Miscellaneous.GameManager gameManager;
         private CannonAttributes cannonAttributes;
         private int maxHealth;
         private int tempHealth;
 
         private void Awake()
         {
-            gameManager = GameManager.Instance;
+            gameManager = Miscellaneous.GameManager.Instance;
             cannonAttributes = GetComponent<CannonAttributes>();
             // initial maxHealth
             maxHealth = cannonAttributes.GetMaxHealth();

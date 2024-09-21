@@ -1,3 +1,4 @@
+using Miscellaneous;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,12 +12,12 @@ namespace Enemy
         private int damage;
         private int pointsWorth;
         private int goldsWorth;
-        private GameManager gameManager;
+        private Miscellaneous.SpawnSystem spawnSystem;
         private EnemyAttributes enemyAttributes;
 
         private void Awake()
         {
-            gameManager = GameManager.Instance;
+            spawnSystem = SpawnSystem.Instance;
             enemyAttributes = GetComponent<EnemyAttributes>();
             pointsWorth = enemyAttributes.GetPointsWorth();
             goldsWorth = enemyAttributes.GetGoldsWorth();
@@ -34,8 +35,8 @@ namespace Enemy
             if (tempHealth <= 0)
             {
                 gameObject.SetActive(false);
-                gameManager.AddScore(pointsWorth);
-                gameManager.AddGolds(goldsWorth);
+
+                spawnSystem.RemoveEnemyAlive(gameObject.tag, pointsWorth, goldsWorth);
             }
         }
     }
