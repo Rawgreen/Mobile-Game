@@ -122,6 +122,53 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &389062653
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 389062654}
+  - component: {fileID: 389062655}
+  m_Layer: 0
+  m_Name: AchievementManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &389062654
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 389062653}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -3.5, y: 5.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &389062655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 389062653}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9806ffccfd6c08d4b881d308eb72491e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  description: 
+  isUnlocked: 0
+  achievementName: 
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -228,10 +275,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 875169959}
-  - component: {fileID: 875169960}
   - component: {fileID: 875169958}
+  - component: {fileID: 875169960}
   m_Layer: 0
-  m_Name: EnemySpawner
+  m_Name: SpawnManager
   m_TagString: Untagged
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -249,17 +296,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ef0abf9265d4624692144542c8ebe31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isSpawning: 1
-  spawnRate: 1
   enemyPrefabs:
   - {fileID: 1112929328801822778, guid: 8cfeb6444f8e70840aeeb95ed7482cf2, type: 3}
-  killTracker: 0
+  isSpawning: 1
+  spawnRate: 1
   maxEnemiesAlive: 50
   enemiesAlive: 0
-  score: 0
-  allTimeScore: 0
-  golds: 0
-  totalGoldsEarned: 0
 --- !u!4 &875169959
 Transform:
   m_ObjectHideFlags: 0
@@ -319,6 +361,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92c2a527dd4ac294bbc44cac50891192, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  achievements: []
+  golds: 0
+  score: 0
+  enemiesKilled: 0
+  totalEnemiesKilled: 0
+  totalGoldsEarned: 0
+  AllTimeScore: 0
 --- !u!4 &2115647708
 Transform:
   m_ObjectHideFlags: 0
@@ -346,6 +395,10 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 563232300}
+    - target: {fileID: 1112929328801822778, guid: 8cfeb6444f8e70840aeeb95ed7482cf2, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 1112929328801822778, guid: 8cfeb6444f8e70840aeeb95ed7482cf2, type: 3}
       propertyPath: m_Name
       value: Enemy
@@ -412,6 +465,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 749912431883341213, guid: 51e832a632421874b84fae00215754af, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 749912431883341213, guid: 51e832a632421874b84fae00215754af, type: 3}
       propertyPath: m_Name
       value: Cannon
       objectReference: {fileID: 0}
@@ -474,6 +531,7 @@ SceneRoots:
   m_Roots:
   - {fileID: 2115647708}
   - {fileID: 875169959}
+  - {fileID: 389062654}
   - {fileID: 519420032}
   - {fileID: 3915113354532610236}
   - {fileID: 490176814714732581}

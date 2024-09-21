@@ -12,19 +12,13 @@ namespace Miscellaneous
         public static SpawnSystem Instance { get; private set; }
 
         private Dictionary<string, int> enemyCounts = new Dictionary<string, int>();
+        private Miscellaneous.GameManager gameManager;
 
+        [SerializeField] private GameObject[] enemyPrefabs;
         [SerializeField] private bool isSpawning = true;
         [SerializeField, Range(0.1f, 5f)] private float spawnRate = 2f;
-        [SerializeField] private GameObject[] enemyPrefabs;
-
         [SerializeField] private int maxEnemiesAlive = 50;
         [SerializeField] private int enemiesAlive = 0;
-        [SerializeField] private int killTracker = 0;
-        [SerializeField] private int totalGoldsEarned = 0;
-        [SerializeField] private int allTimeScore = 0;
-        [SerializeField] private int currentScore = 0;
-        [SerializeField] private int currentGolds = 0;
-
 
         private void Awake()
         {
@@ -41,6 +35,7 @@ namespace Miscellaneous
 
         private void Start()
         {
+            gameManager = GameManager.Instance;
             StartCoroutine(Spawner());
         }
 
@@ -71,10 +66,10 @@ namespace Miscellaneous
 
         public void AddEnemyAlive(string tag)
         {
-            enemiesAlive += 1;
+            enemiesAlive++;
             if (enemyCounts.ContainsKey(tag))
             {
-                enemyCounts[tag] += 1;
+                enemyCounts[tag]++;
             }
             else
             {
@@ -82,17 +77,17 @@ namespace Miscellaneous
             }
         }
 
-        public void RemoveEnemyAlive(string tag, int pointsWorth, int goldWorth)
+        public void RemoveEnemyAlive(string tag, int goldsWorth, int pointsWorth)
         {
-            KillTrackerUp();
-            AddGolds(goldWorth);
-            AddScore(pointsWorth);
-
-            enemiesAlive -= 1;
+            enemiesAlive--;
             if (enemyCounts.ContainsKey(tag))
             {
-                enemyCounts[tag] -= 1;
+                enemyCounts[tag]--;
             }
+
+            gameManager.KillTrackerUp();
+            gameManager.EarnGolds(goldsWorth);
+            gameManager.ScoreUp(pointsWorth);
         }
 
         public int GetEnemiesAlive()
@@ -107,52 +102,6 @@ namespace Miscellaneous
                 return enemyCounts[tag];
             }
             return 0;
-        }
-
-        public void KillTrackerUp()
-        {
-            killTracker += 1;
-        }
-
-        public int GetKillTracker()
-        {
-            return killTracker;
-        }
-
-        public void AddGolds(int goldsWorth)
-        {
-            currentGolds += goldsWorth;
-            totalGoldsEarned += goldsWorth;
-        }
-
-        public int GetTotalGoldsEarned()
-        {
-            return totalGoldsEarned;
-        }
-
-        public int GetScore()
-        {
-            return currentScore;
-        }
-
-        public int GetAllTimeScore()
-        {
-            return allTimeScore;
-        }
-
-        public void AddScore(int point)
-        {
-            currentScore += point;
-            AllTimeScoreTracker();
-        }
-
-        public void AllTimeScoreTracker()
-        {
-
-            if (currentScore >= allTimeScore)
-            {
-                allTimeScore = currentScore;
-            }
         }
     }
 }
