@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cdf9c24801964e459d3f18fce0bcc49, type: 3}
+  m_Name: CannonStats
+  m_EditorClassIdentifier: 
+  maxHealth: 10
+  tempHealth: 10
+  damage: 10
+  projectileSpeed: 20
+  radius: 10
+  shootingSpeed: 0.5
+  circleCorners: 720
+  projectilePrefab: {fileID: 2153347735406435076, guid: c447467769fbe9549a078a32b3409018, type: 3}
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 128

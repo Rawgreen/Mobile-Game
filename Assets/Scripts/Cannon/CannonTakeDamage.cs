@@ -7,24 +7,23 @@ namespace Cannon
     public class CannonTakeDamage : MonoBehaviour
     {
         private Miscellaneous.GameManager gameManager;
-        private CannonAttributes cannonAttributes;
+        [SerializeField] private CannonStats cannonStats;
         private int maxHealth;
         private int tempHealth;
 
         private void Awake()
         {
             gameManager = Miscellaneous.GameManager.Instance;
-            cannonAttributes = GetComponent<CannonAttributes>();
             // initial maxHealth
-            maxHealth = cannonAttributes.GetMaxHealth();
+            maxHealth = cannonStats.GetMaxHealth();
             tempHealth = maxHealth;
-            cannonAttributes.SetTempHealth(tempHealth);
+            cannonStats.SetTempHealth(tempHealth);
         }
 
         public void TakeDamage(int damage)
         {
             tempHealth -= damage;
-            cannonAttributes.SetTempHealth(tempHealth);
+            cannonStats.SetTempHealth(tempHealth);
             if (tempHealth <= 0)
             {
                 gameObject.SetActive(false);

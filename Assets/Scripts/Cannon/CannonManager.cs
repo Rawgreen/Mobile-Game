@@ -10,11 +10,12 @@ namespace Cannon
 
         private LayerMask enemyLayer;
         private GameObject closestEnemy;
+        [SerializeField] private CannonStats cannonStats;
 
         private void Start()
         {
-            radius = GetComponent<CannonAttributes>().GetRadius();
-            enemyLayer = GetComponent<CannonAttributes>().GetEnemyLayer();
+            radius = cannonStats.GetRadius();
+            enemyLayer = cannonStats.GetEnemyLayer();
         }
 
         private void Update()

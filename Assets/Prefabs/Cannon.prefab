@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 1451723966579883338}
   - component: {fileID: 764011520655137610}
   - component: {fileID: 7430613063971308510}
-  - component: {fileID: 2609017335658942475}
   - component: {fileID: 3566974588772879570}
   - component: {fileID: 6072403286790025467}
   - component: {fileID: 3353493184146476435}
@@ -282,30 +281,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39c7ad5a7a33cbf488ef669fc53b3ba4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2609017335658942475
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 749912431883341213}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d86009a1190bc8440bb0bfaeb759ce82, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 10
-  tempHealth: 0
-  damage: 10
-  projectileSpeed: 2
-  radius: 4
-  shootingSpeed: 1
-  circleCorners: 360
-  shootingPoint: {fileID: 5706297806143992724}
-  projectilePrefab: {fileID: 2153347735406435076, guid: c447467769fbe9549a078a32b3409018, type: 3}
-  enemyLayer:
-    serializedVersion: 2
-    m_Bits: 128
+  cannonStats: {fileID: 11400000, guid: 7cd6dcab63d592b47b38c68912c91f51, type: 2}
 --- !u!114 &3566974588772879570
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -330,6 +306,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74c55ff5987972e48ad020834dfee31b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cannonStats: {fileID: 11400000, guid: 7cd6dcab63d592b47b38c68912c91f51, type: 2}
 --- !u!114 &3353493184146476435
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -342,6 +319,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ac89c1f533e97d4cbbae8ac2b5ea8c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cannonStats: {fileID: 11400000, guid: 7cd6dcab63d592b47b38c68912c91f51, type: 2}
 --- !u!114 &7076872395611894311
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -354,6 +332,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 050f507a906cc2e42bec4915c33a4a1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cannonStats: {fileID: 11400000, guid: 7cd6dcab63d592b47b38c68912c91f51, type: 2}
 --- !u!1 &9146177308084384839
 GameObject:
   m_ObjectHideFlags: 0

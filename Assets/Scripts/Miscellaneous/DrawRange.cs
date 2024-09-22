@@ -8,13 +8,13 @@ namespace Miscellaneous
     {
         private float radius;
         private int circleCorners;
-
         private LineRenderer line;
+        [SerializeField] private CannonStats cannonStats;
 
         private void Start()
         {
-            radius = GetComponent<Cannon.CannonAttributes>().GetRadius();
-            circleCorners = GetComponent<Cannon.CannonAttributes>().GetCircleCorners();
+            radius = cannonStats.GetRadius();
+            circleCorners = cannonStats.GetCircleCorners();
 
             if (line == null)
             {

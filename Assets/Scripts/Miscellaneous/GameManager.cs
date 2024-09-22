@@ -41,7 +41,7 @@ namespace Miscellaneous
 
         private void OnAchievementUnlocked(Achievement achievement)
         {
-            Debug.Log($"Achievement Unlocked: {achievement.title}");
+            Debug.Log($"{achievement.title}: {achievement.description}");
         }
 
         public void GameOver()

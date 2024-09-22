@@ -176,10 +176,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 10
   tempHealth: 0
-  moveSpeed: 1.37
+  moveSpeed: 0.33
   damage: 1
-  pointsWorth: 1000
-  goldsWorth: 6150
+  pointsWorth: 10
+  goldsWorth: 1
 --- !u!114 &357141298101985515
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -192,7 +192,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4636c7c97392124e9b373342df5e9b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
+  target: {fileID: 749912431883341213, guid: 51e832a632421874b84fae00215754af, type: 3}
 --- !u!114 &3911684598763601822
 MonoBehaviour:
   m_ObjectHideFlags: 0
