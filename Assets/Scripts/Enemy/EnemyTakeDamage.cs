@@ -13,10 +13,11 @@ namespace Enemy
         private int pointsWorth;
         private int goldsWorth;
         private EnemyAttributes enemyAttributes;
+        private SpawnSystem spawnSystem;
 
         private void Awake()
         {
-
+            spawnSystem = SpawnSystem.Instance;
             enemyAttributes = GetComponent<EnemyAttributes>();
             pointsWorth = enemyAttributes.GetPointsWorth();
             goldsWorth = enemyAttributes.GetGoldsWorth();
@@ -33,8 +34,8 @@ namespace Enemy
             enemyAttributes.SetTempHealth(tempHealth);
             if (tempHealth <= 0)
             {
-                gameObject.SetActive(false);
-                //spawnSystem.RemoveEnemyAlive(gameObject.tag, goldsWorth, pointsWorth);
+                Destroy(gameObject);
+                spawnSystem.RemoveEnemyAlive(gameObject.tag, goldsWorth, pointsWorth);
             }
         }
     }

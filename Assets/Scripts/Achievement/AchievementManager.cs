@@ -1,35 +1,40 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class AchievementManager : MonoBehaviour
 {
-    [SerializeField] private string description;
-    private Predicate<object> requirement;
+    public static AchievementManager Instance { get; private set; }
 
-    public bool isUnlocked;
-    public string achievementName;
+    [SerializeField] private List<Achievement> achievements;
 
-    public AchievementManager(string achievementName, string description, Predicate<object> requirement)
+    public event Action<Achievement> OnAchievementUnlocked;
+
+    private void Awake()
     {
-        this.achievementName = achievementName;
-        this.description = description;
-        this.requirement = requirement;
-    }
-
-    public void UnlockAchievement()
-    {
-        if (RequirementsMet())
+        if (Instance == null)
         {
-            isUnlocked = true;
-            Debug.Log($"{this.achievementName}: {this.description}");
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
         }
     }
 
-    public bool RequirementsMet()
+    public void UnlockAchievement(string title)
     {
-        return requirement.Invoke(null);
+        Achievement achievement = achievements.Find(a => a.title == title);
+        if (achievement != null && !achievement.isUnlocked)
+        {
+            achievement.Unlock();
+            OnAchievementUnlocked?.Invoke(achievement);
+        }
+    }
+
+    public List<Achievement> GetAchievements()
+    {
+        return achievements;
     }
 }
-

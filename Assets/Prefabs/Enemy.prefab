@@ -176,10 +176,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 10
   tempHealth: 0
-  moveSpeed: 0.33
-  damage: 2
-  pointsWorth: 5
-  goldsWorth: 1
+  moveSpeed: 1.37
+  damage: 1
+  pointsWorth: 1000
+  goldsWorth: 6150
 --- !u!114 &357141298101985515
 MonoBehaviour:
   m_ObjectHideFlags: 0
