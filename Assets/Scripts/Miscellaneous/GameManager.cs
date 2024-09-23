@@ -31,6 +31,9 @@ namespace Miscellaneous
 
         private void Start()
         {
+            //TODO: remove after testing
+            // Resets achievements every time the game starts
+            AchievementManager.Instance.ResetAchievements();
             AchievementManager.Instance.OnAchievementUnlocked += OnAchievementUnlocked;
         }
 

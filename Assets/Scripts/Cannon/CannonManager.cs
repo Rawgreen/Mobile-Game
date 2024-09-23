@@ -26,14 +26,7 @@ namespace Cannon
             {
                 Destroy(gameObject);
             }
-
-            // Get cannon object and assign its position to cannon manager
-            // so that it can be used to calculate the closest enemy without any problems.
             cannonObject = GameObject.Find("Cannon");
-        }
-
-        private void Start()
-        {
             radius = cannonStats.GetRadius();
             enemyLayer = cannonStats.GetEnemyLayer();
         }

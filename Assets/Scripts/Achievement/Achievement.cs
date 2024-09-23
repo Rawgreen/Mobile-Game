@@ -10,6 +10,5 @@ public class Achievement : ScriptableObject
     public void Unlock()
     {
         isUnlocked = true;
-        Debug.Log($"Achievement Unlocked: {title} - {description}");
     }
 }

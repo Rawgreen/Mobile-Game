@@ -13,14 +13,10 @@ namespace Miscellaneous
         private float radius;
         private int circleCorners;
 
-        private void Awake()
+        private void Start()
         {
             cannonManager = CannonManager.Instance;
             cannonStats = cannonManager.GetCannonStats();
-        }
-
-        private void Start()
-        {
             radius = cannonStats.GetRadius();
             circleCorners = cannonStats.GetCircleCorners();
 

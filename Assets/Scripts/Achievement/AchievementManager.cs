@@ -33,6 +33,14 @@ public class AchievementManager : MonoBehaviour
         }
     }
 
+    public void ResetAchievements()
+    {
+        foreach (Achievement achievement in achievements)
+        {
+            achievement.isUnlocked = false;
+        }
+    }
+
     public List<Achievement> GetAchievements()
     {
         return achievements;

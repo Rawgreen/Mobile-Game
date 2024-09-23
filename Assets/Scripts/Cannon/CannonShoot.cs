@@ -8,17 +8,14 @@ namespace Cannon
     {
         private GameObject projectilePrefab;
         private Transform shootingPoint;
-        private CannonManager cannonManager;
         private CannonStats cannonStats;
 
         private float shootingSpeed;
         private bool canShoot = true;
 
-
-        private void Awake()
+        private void Start()
         {
-            cannonManager = CannonManager.Instance;
-            cannonStats = cannonManager.GetCannonStats();
+            cannonStats = CannonManager.Instance.GetCannonStats();
             projectilePrefab = cannonStats.GetProjectilePrefab();
             shootingPoint = transform.Find("ShootingPoint");
             shootingSpeed = cannonStats.GetShootingSpeed();
@@ -26,7 +23,7 @@ namespace Cannon
 
         private void Update()
         {
-            GameObject closestEnemy = cannonManager.GetClosestEnemy();
+            GameObject closestEnemy = CannonManager.Instance.GetClosestEnemy();
             if (closestEnemy != null && canShoot)
             {
                 StartCoroutine(AttackDelay());

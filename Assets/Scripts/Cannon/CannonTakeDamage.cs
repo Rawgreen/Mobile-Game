@@ -11,7 +11,7 @@ namespace Cannon
         private int maxHealth;
         private int tempHealth;
 
-        private void Awake()
+        private void Start()
         {
             gameManager = Miscellaneous.GameManager.Instance;
             cannonStats = CannonManager.Instance.GetCannonStats();
