@@ -6,11 +6,31 @@ namespace Cannon
 {
     public class CannonManager : MonoBehaviour
     {
-        private float radius;
+        // Singleton pattern
+        public static CannonManager Instance { get; private set; }
+        [SerializeField] private CannonStats cannonStats;
 
+        private float radius;
         private LayerMask enemyLayer;
         private GameObject closestEnemy;
-        [SerializeField] private CannonStats cannonStats;
+        private GameObject cannonObject;
+
+        private void Awake()
+        {
+            if (Instance == null)
+            {
+                Instance = this;
+                DontDestroyOnLoad(gameObject);
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+
+            // Get cannon object and assign its position to cannon manager
+            // so that it can be used to calculate the closest enemy without any problems.
+            cannonObject = GameObject.Find("Cannon");
+        }
 
         private void Start()
         {
@@ -23,6 +43,11 @@ namespace Cannon
             closestEnemy = CalculateClosestEnemy();
         }
 
+        public CannonStats GetCannonStats()
+        {
+            return cannonStats;
+        }
+
         public GameObject GetClosestEnemy()
         {
             return closestEnemy;
@@ -30,13 +55,14 @@ namespace Cannon
 
         private GameObject CalculateClosestEnemy()
         {
-            Collider2D[] detectedEnemies = Physics2D.OverlapCircleAll(transform.position, radius / 2.5f, enemyLayer);
+            GameObject closestEnemy = null;
+            Collider2D[] detectedEnemies = Physics2D.OverlapCircleAll(cannonObject.transform.position, cannonStats.GetRadius() / 2.5f, cannonStats.GetEnemyLayer());
             if (detectedEnemies.Length > 0)
             {
                 float maxDistance = 10000f;
                 foreach (Collider2D enemy in detectedEnemies)
                 {
-                    float currentDistance = CalculateDistance(enemy.transform);
+                    float currentDistance = Miscellaneous.HelperFunctions.CalculateDistance(gameObject.transform, enemy.transform);
                     if (currentDistance < maxDistance)
                     {
                         maxDistance = currentDistance;
@@ -49,12 +75,6 @@ namespace Cannon
             {
                 return null;
             }
-        }
-
-        private float CalculateDistance(Transform enemy)
-        {
-            return Mathf.Sqrt(Mathf.Pow(enemy.transform.position.x - gameObject.transform.position.x, 2) +
-                              Mathf.Pow(enemy.transform.position.y - gameObject.transform.position.y, 2));
         }
     }
 }

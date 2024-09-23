@@ -9,7 +9,7 @@ namespace Cannon
         private GameObject projectilePrefab;
         private Transform shootingPoint;
         private CannonManager cannonManager;
-        [SerializeField] private CannonStats cannonStats;
+        private CannonStats cannonStats;
 
         private float shootingSpeed;
         private bool canShoot = true;
@@ -17,7 +17,8 @@ namespace Cannon
 
         private void Awake()
         {
-            cannonManager = GetComponent<CannonManager>();
+            cannonManager = CannonManager.Instance;
+            cannonStats = cannonManager.GetCannonStats();
             projectilePrefab = cannonStats.GetProjectilePrefab();
             shootingPoint = transform.Find("ShootingPoint");
             shootingSpeed = cannonStats.GetShootingSpeed();

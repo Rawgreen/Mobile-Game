@@ -1,3 +1,4 @@
+using Miscellaneous;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,32 +7,46 @@ namespace Enemy
 {
     public class EnemyMovement : MonoBehaviour
     {
-        [SerializeField] private GameObject target;
-
+        private GameObject target;
+        private SpawnSystem spawnSystem;
         private float moveSpeed;
+
+        private void Awake()
+        {
+            spawnSystem = SpawnSystem.Instance;
+            moveSpeed = spawnSystem.GetEnemyStats().GetMoveSpeed();
+        }
 
         private void Start()
         {
-            moveSpeed = GetComponent<EnemyAttributes>().GetMoveSpeed();
-
+            // Always target the "Cannon" GameObject
+            target = GameObject.Find("Cannon");
             if (target == null)
             {
-                target = GameObject.FindGameObjectWithTag("Player");
+                Debug.LogError("Cannon GameObject not found in the scene.");
             }
         }
 
         private void Update()
         {
-            Vector3 moveDirection = CalculateDirection(target.transform);
-            moveDirection.Normalize();
+            if (target != null)
+            {
+                Vector3 moveDirection = CalculateDirection(target.transform);
+                moveDirection.Normalize();
 
-            // calculate rotation with atan2 and convert to degrees
-            float rotationAngle = CalculateAngle(moveDirection);
-            Quaternion targetRotation = Quaternion.Euler(0, 0, rotationAngle);
+                // Calculate rotation with atan2 and convert to degrees
+                float rotationAngle = CalculateAngle(moveDirection);
+                Quaternion targetRotation = Quaternion.Euler(0, 0, rotationAngle);
 
-            // pass new values to transform
-            gameObject.transform.rotation = targetRotation;
-            gameObject.transform.position += moveDirection * moveSpeed * Time.deltaTime;
+                // Pass new values to transform
+                gameObject.transform.rotation = targetRotation;
+                gameObject.transform.position += moveDirection * moveSpeed * Time.deltaTime;
+            }
+            else
+            {
+                // Stop moving if the target is destroyed
+                moveSpeed = 0;
+            }
         }
 
         private Vector3 CalculateDirection(Transform target)

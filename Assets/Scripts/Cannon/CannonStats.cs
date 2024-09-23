@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Stat", menuName = "New Stats", order = 1)]
+[CreateAssetMenu(fileName = "New Cannon Stat", menuName = "New Cannon Stat", order = 1)]
 public class CannonStats : ScriptableObject
 {
     [SerializeField] private int maxHealth = 10;

@@ -10,15 +10,18 @@ namespace Miscellaneous
     {
         // Singleton pattern
         public static SpawnSystem Instance { get; private set; }
-
-        private Dictionary<string, int> enemyCounts = new Dictionary<string, int>();
         private Miscellaneous.GameManager gameManager;
 
+
+        private Dictionary<string, int> enemyCounts = new Dictionary<string, int>();
+
+        [SerializeField] private EnemyStats enemyStats;
         [SerializeField] private GameObject[] enemyPrefabs;
         [SerializeField] private bool isSpawning = true;
         [SerializeField, Range(0.1f, 5f)] private float spawnRate = 2f;
         [SerializeField] private int maxEnemiesAlive = 50;
         [SerializeField] private int enemiesAlive = 0;
+        
 
         private void Awake()
         {
@@ -49,6 +52,11 @@ namespace Miscellaneous
             {
                 isSpawning = true;
             }
+        }
+
+        public EnemyStats GetEnemyStats()
+        {
+            return enemyStats;
         }
 
         private IEnumerator Spawner()

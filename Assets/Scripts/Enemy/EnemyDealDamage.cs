@@ -1,3 +1,4 @@
+using Miscellaneous;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,12 +8,10 @@ namespace Enemy
     public class EnemyDealDamage : MonoBehaviour
     {
         private int damage;
-        private EnemyAttributes enemyAttributes;
 
         public void Awake()
         {
-            enemyAttributes = GetComponent<EnemyAttributes>();
-            damage = enemyAttributes.GetDamage();
+            damage = SpawnSystem.Instance.GetEnemyStats().GetDamage();
         }
 
         private void OnTriggerEnter2D(Collider2D collision)

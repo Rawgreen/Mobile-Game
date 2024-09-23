@@ -6,16 +6,9 @@ namespace Cannon
 {
     public class CanonRotate : MonoBehaviour
     {
-        private CannonManager cannonManager;
-
-        private void Start()
-        {
-            cannonManager = GetComponent<CannonManager>();
-        }
-
         private void Update()
         {
-            GameObject closestEnemy = cannonManager.GetClosestEnemy();
+            GameObject closestEnemy = CannonManager.Instance.GetClosestEnemy();
             if (closestEnemy != null)
             {
                 gameObject.transform.rotation = CalculateDirection(closestEnemy.transform);

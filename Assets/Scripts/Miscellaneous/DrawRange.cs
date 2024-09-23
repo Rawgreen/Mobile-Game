@@ -1,3 +1,4 @@
+using Cannon;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,10 +7,17 @@ namespace Miscellaneous
 {
     public class DrawRange : MonoBehaviour
     {
+        private LineRenderer line;
+        private CannonManager cannonManager;
+        private CannonStats cannonStats;
         private float radius;
         private int circleCorners;
-        private LineRenderer line;
-        [SerializeField] private CannonStats cannonStats;
+
+        private void Awake()
+        {
+            cannonManager = CannonManager.Instance;
+            cannonStats = cannonManager.GetCannonStats();
+        }
 
         private void Start()
         {
