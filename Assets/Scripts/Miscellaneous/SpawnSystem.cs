@@ -85,17 +85,13 @@ namespace Miscellaneous
             }
         }
 
-        public void RemoveEnemyAlive(string tag, int goldsWorth, int pointsWorth)
+        public void RemoveEnemyAlive(string tag)
         {
             enemiesAlive--;
             if (enemyCounts.ContainsKey(tag))
             {
                 enemyCounts[tag]--;
             }
-
-            gameManager.KillTrackerUp();
-            gameManager.EarnGolds(goldsWorth);
-            gameManager.ScoreUp(pointsWorth);
         }
 
         public int GetEnemiesAlive()

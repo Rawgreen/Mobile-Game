@@ -132,6 +132,7 @@ GameObject:
   m_Component:
   - component: {fileID: 170571327}
   - component: {fileID: 170571326}
+  - component: {fileID: 170571328}
   m_Layer: 0
   m_Name: CannonManager
   m_TagString: Untagged
@@ -167,6 +168,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &170571328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 170571325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b5ac61c6533ccc429ca710b55b796ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &389062653
 GameObject:
   m_ObjectHideFlags: 0
@@ -213,16 +226,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   achievements:
   - {fileID: 11400000, guid: fe087f0bcfdc4a34fbc5fa57fefce9fc, type: 2}
-  - {fileID: 11400000, guid: 69f9e296830b6ba4fb3f0713057c2792, type: 2}
-  - {fileID: 11400000, guid: 3020d64fb4e1d7d47ae9f79f4484c685, type: 2}
-  - {fileID: 11400000, guid: 80c6436968504f0478fd991dfec73203, type: 2}
-  - {fileID: 11400000, guid: fcf98537b84ddbb4883d59ec28e8eb71, type: 2}
-  - {fileID: 11400000, guid: af6aec659a4acdd44a7e7349aefcd7f8, type: 2}
+  - {fileID: 11400000, guid: 252ae6fe886c087478ded1306aedd79f, type: 2}
   - {fileID: 11400000, guid: ca048719eb502eb4dbad9ea226cd13ef, type: 2}
+  - {fileID: 11400000, guid: 69f9e296830b6ba4fb3f0713057c2792, type: 2}
+  - {fileID: 11400000, guid: 953f2562d659c894cbef8d2863e20655, type: 2}
   - {fileID: 11400000, guid: 61ddc69eac8a53647b7f548848c167d0, type: 2}
+  - {fileID: 11400000, guid: 3020d64fb4e1d7d47ae9f79f4484c685, type: 2}
+  - {fileID: 11400000, guid: 01487b783c8cd7f478447290ab8a7048, type: 2}
   - {fileID: 11400000, guid: 9aebfb59efd1466449c5f32607f9a6db, type: 2}
+  - {fileID: 11400000, guid: 80c6436968504f0478fd991dfec73203, type: 2}
+  - {fileID: 11400000, guid: f7e445f86b4261b488dd1e0fdc320bb5, type: 2}
   - {fileID: 11400000, guid: 7c9b444431ae3f04a8dd476464f26096, type: 2}
+  - {fileID: 11400000, guid: fcf98537b84ddbb4883d59ec28e8eb71, type: 2}
+  - {fileID: 11400000, guid: 2ae2e7ff143f2bb46aa68efca5ead1aa, type: 2}
   - {fileID: 11400000, guid: 9119c86198c850a4ba2f00587cea3e7e, type: 2}
+  - {fileID: 11400000, guid: af6aec659a4acdd44a7e7349aefcd7f8, type: 2}
+  - {fileID: 11400000, guid: c8b8f2674d22d864a93c881313123204, type: 2}
   - {fileID: 11400000, guid: 23a7ad7f68bf3a94b861538e3667e997, type: 2}
 --- !u!1 &519420028
 GameObject:
@@ -350,8 +369,8 @@ MonoBehaviour:
   enemyPrefabs:
   - {fileID: 1112929328801822778, guid: 8cfeb6444f8e70840aeeb95ed7482cf2, type: 3}
   isSpawning: 1
-  spawnRate: 1
-  maxEnemiesAlive: 50
+  spawnRate: 2
+  maxEnemiesAlive: 10
   enemiesAlive: 0
 --- !u!4 &875169959
 Transform:
@@ -381,7 +400,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   centerPoint: {fileID: 519420032}
-  radius: 6.5
+  radius: 5
   rotationSpeed: 1
 --- !u!1 &2115647706
 GameObject:
@@ -415,7 +434,7 @@ MonoBehaviour:
   score: 0
   allTimeScore: 0
   enemiesKilled: 0
-  totalEnemiesKilled: 0
+  totalEnemiesKilled: 49999
   golds: 0
   totalGoldsEarned: 0
 --- !u!4 &2115647708

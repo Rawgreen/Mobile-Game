@@ -9,12 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71a40d21d1396684881b1fcfdca7c2bf, type: 3}
-  m_Name: DefaultEnemy
+  m_Script: {fileID: 11500000, guid: 5de4f30530c8b1246b6d0515c6eaa1a7, type: 3}
+  m_Name: King of Riches
   m_EditorClassIdentifier: 
-  maxHealth: 10
-  tempHealth: 0
-  moveSpeed: 0.66
-  damage: 1
-  pointsWorth: 100
-  goldsWorth: 10
+  title: King of Riches
+  description: Collect 100,000 gold in your lifetime and build an empire of towers.
+  isUnlocked: 0

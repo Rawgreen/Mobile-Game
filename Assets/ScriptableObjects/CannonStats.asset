@@ -15,9 +15,9 @@ MonoBehaviour:
   maxHealth: 10
   tempHealth: 10
   damage: 10
-  projectileSpeed: 20
-  radius: 10
-  shootingSpeed: 0.5
+  projectileSpeed: 5
+  radius: 5
+  shootingSpeed: 1
   circleCorners: 720
   projectilePrefab: {fileID: 2153347735406435076, guid: c447467769fbe9549a078a32b3409018, type: 3}
   enemyLayer:

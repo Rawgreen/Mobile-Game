@@ -33,7 +33,8 @@ namespace Enemy
             if (tempHealth <= 0)
             {
                 Destroy(gameObject);
-                spawnSystem.RemoveEnemyAlive(gameObject.tag, goldsWorth, pointsWorth);
+                spawnSystem.RemoveEnemyAlive(gameObject.tag);
+                GameManager.Instance.KillTrackerUp(pointsWorth, goldsWorth);
             }
         }
     }

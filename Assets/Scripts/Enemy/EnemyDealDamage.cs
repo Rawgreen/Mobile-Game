@@ -18,8 +18,8 @@ namespace Enemy
         {
             if (collision.CompareTag("Player"))
             {
-                collision.gameObject.GetComponent<Cannon.CannonTakeDamage>().TakeDamage(damage);
                 Destroy(gameObject);
+                collision.gameObject.GetComponent<Cannon.CannonTakeDamage>().TakeDamage(damage);
             }
         }
     }

@@ -52,11 +52,20 @@ namespace Miscellaneous
             Debug.Log("Game Over");
         }
 
-        public void KillTrackerUp()
+        public void KillTrackerUp(int pointsWorth, int goldsWorth)
         {
             enemiesKilled++;
             totalEnemiesKilled++;
+            golds += goldsWorth;
+            totalGoldsEarned += goldsWorth;
+            score += pointsWorth;
+            if (score >= allTimeScore)
+            {
+                allTimeScore = score;
+            }
             CheckKillAchievements();
+            CheckGoldAchievements();
+            CheckScoreAchievements();
         }
 
         private void CheckKillAchievements()
@@ -81,45 +90,37 @@ namespace Miscellaneous
             {
                 AchievementManager.Instance.UnlockAchievement("First Blood");
             }
-            else if (enemiesKilled >= 1)
+            else if (totalEnemiesKilled >= 1)
             {
                 AchievementManager.Instance.UnlockAchievement("Kill1");
             }
         }
 
-        public int GetKillTracker()
+        private void CheckGoldAchievements()
         {
-            return enemiesKilled;
-        }
-
-        public int GetTotalKillTracker()
-        {
-            return totalEnemiesKilled;
-        }
-
-        public void EarnGolds(int goldsWorth)
-        {
-            golds += goldsWorth;
-            totalGoldsEarned += goldsWorth;
-        }
-
-        public int GetGolds()
-        {
-            return golds;
-        }
-
-        public int GetTotalGolds()
-        {
-            return totalGoldsEarned;
-        }
-
-        public void ScoreUp(int scoreWorth)
-        {
-            score += scoreWorth;
-            if (score >= allTimeScore)
+            if (totalGoldsEarned >= 500000)
             {
-                allTimeScore = score;
-                CheckScoreAchievements();
+                AchievementManager.Instance.UnlockAchievement("Master of Wealth");
+            }
+            else if (totalGoldsEarned >= 100000)
+            {
+                AchievementManager.Instance.UnlockAchievement("King of Riches");
+            }
+            else if (totalGoldsEarned >= 50000)
+            {
+                AchievementManager.Instance.UnlockAchievement("Fortune Hoarder");
+            }
+            else if (totalGoldsEarned >= 10000)
+            {
+                AchievementManager.Instance.UnlockAchievement("Golden Strategist");
+            }
+            else if (totalGoldsEarned >= 1000)
+            {
+                AchievementManager.Instance.UnlockAchievement("Treasure Seeker");
+            }
+            else if (totalGoldsEarned >= 1)
+            {
+                AchievementManager.Instance.UnlockAchievement("Gold1");
             }
         }
 
@@ -149,16 +150,6 @@ namespace Miscellaneous
             {
                 AchievementManager.Instance.UnlockAchievement("Score1");
             }
-        }
-
-        public int GetScore()
-        {
-            return score;
-        }
-
-        public int GetAllTimeScore()
-        {
-            return allTimeScore;
         }
     }
 }

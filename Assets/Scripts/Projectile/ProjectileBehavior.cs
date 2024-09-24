@@ -30,8 +30,8 @@ namespace Projectile
         {
             if (collider.gameObject.CompareTag("Enemy"))
             {
-                collider.gameObject.GetComponent<Enemy.EnemyTakeDamage>().TakeDamage(damage);
                 Destroy(gameObject);
+                collider.gameObject.GetComponent<Enemy.EnemyTakeDamage>().TakeDamage(damage);
             }
         }
 

@@ -90,6 +90,11 @@ public class CannonStats : ScriptableObject
         return projectilePrefab;
     }
 
+    public void SetProjectilePrefab(GameObject newPrefab)
+    {
+        projectilePrefab = newPrefab;
+    }
+
     public LayerMask GetEnemyLayer()
     {
         return enemyLayer;
