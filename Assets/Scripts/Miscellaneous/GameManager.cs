@@ -44,7 +44,9 @@ namespace Miscellaneous
 
         private void OnAchievementUnlocked(Achievement achievement)
         {
-            Debug.Log($"{achievement.title}: {achievement.description}");
+            //TODO: remove after testing
+            //Debug.Log($"{achievement.title}: {achievement.description}");
+            return;
         }
 
         public void GameOver()
@@ -90,10 +92,11 @@ namespace Miscellaneous
             {
                 AchievementManager.Instance.UnlockAchievement("First Blood");
             }
-            else if (totalEnemiesKilled >= 1)
-            {
-                AchievementManager.Instance.UnlockAchievement("Kill1");
-            }
+            //TODO: remove after testing
+            //else if (totalEnemiesKilled >= 1)
+            //{
+            //    AchievementManager.Instance.UnlockAchievement("Kill1");
+            //}
         }
 
         private void CheckGoldAchievements()
@@ -118,10 +121,11 @@ namespace Miscellaneous
             {
                 AchievementManager.Instance.UnlockAchievement("Treasure Seeker");
             }
-            else if (totalGoldsEarned >= 1)
-            {
-                AchievementManager.Instance.UnlockAchievement("Gold1");
-            }
+            //TODO: remove after testing
+            //else if (totalGoldsEarned >= 1)
+            //{
+            //    AchievementManager.Instance.UnlockAchievement("Gold1");
+            //}
         }
 
         private void CheckScoreAchievements()
@@ -146,10 +150,11 @@ namespace Miscellaneous
             {
                 AchievementManager.Instance.UnlockAchievement("Rising Star");
             }
-            else if (allTimeScore >= 1)
-            {
-                AchievementManager.Instance.UnlockAchievement("Score1");
-            }
+            //TODO: remove after testing
+            //else if (allTimeScore >= 1)
+            //{
+            //    AchievementManager.Instance.UnlockAchievement("Score1");
+            //}
         }
     }
 }

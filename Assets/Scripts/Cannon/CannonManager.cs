@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Cannon
 {
@@ -9,11 +10,11 @@ namespace Cannon
         // Singleton pattern
         public static CannonManager Instance { get; private set; }
         [SerializeField] private CannonStats cannonStats;
-
+        
         private float radius;
         private LayerMask enemyLayer;
         private GameObject closestEnemy;
-        private CannonUpgrade cannonUpgrade;
+        private ButtonManager buttonManager;
         private GameObject cannonObject;
 
         private void Awake()
@@ -31,8 +32,8 @@ namespace Cannon
 
         private void Start()
         {
-            cannonUpgrade = GetComponent<CannonUpgrade>();
             cannonObject = GameObject.Find("Cannon");
+            buttonManager = GameObject.Find("ButtonManager").GetComponent<ButtonManager>();
             radius = cannonStats.GetRadius();
             enemyLayer = cannonStats.GetEnemyLayer();
         }
@@ -40,21 +41,7 @@ namespace Cannon
         private void Update()
         {
             closestEnemy = CalculateClosestEnemy();
-            if(Input.GetKeyDown(KeyCode.Q))
-            {
-                cannonUpgrade.UpgradeProjectileSpeed(0.1f);
-                Debug.Log($"Projectile speed upgraded by: {0.1f}");
-            }
-            else if(Input.GetKeyDown(KeyCode.W))
-            {
-                cannonUpgrade.UpgradeDamage(1);
-                Debug.Log($"Damage upgraded by: {1}");
-            }
-            else if(Input.GetKeyDown(KeyCode.E))
-            {
-                cannonUpgrade.UpgradeShootingSpeed(0.1f);
-                Debug.Log($"Shooting speed upgraded by: {0.1f}");
-            }
+            
         }
 
         public CannonStats GetCannonStats()
