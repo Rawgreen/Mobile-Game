@@ -684,7 +684,7 @@ GameObject:
   - component: {fileID: 482284858}
   - component: {fileID: 482284857}
   m_Layer: 5
-  m_Name: ProjectileSpeedUpgrade
+  m_Name: ProjectileVelocityUpgrade
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1380,7 +1380,7 @@ GameObject:
   - component: {fileID: 995772116}
   - component: {fileID: 995772115}
   m_Layer: 5
-  m_Name: ShootingSpeedUpgrade
+  m_Name: ShootingRateUpgrade
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

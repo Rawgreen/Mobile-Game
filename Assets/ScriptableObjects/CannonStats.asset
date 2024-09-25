@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cdf9c24801964e459d3f18fce0bcc49, type: 3}
   m_Name: CannonStats
   m_EditorClassIdentifier: 
-  maxHealth: 10
+  maxHealth: 0
   tempHealth: 10
-  damage: 10
-  projectileSpeed: 5
-  radius: 5
-  shootingSpeed: 1
-  circleCorners: 720
+  damage: 0
+  circleCorners: 0
+  projectileSpeed: 0
+  radius: 0
+  shootingSpeed: 0
   projectilePrefab: {fileID: 2153347735406435076, guid: c447467769fbe9549a078a32b3409018, type: 3}
   enemyLayer:
     serializedVersion: 2

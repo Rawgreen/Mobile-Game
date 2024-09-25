@@ -23,6 +23,7 @@ namespace Cannon
 
         private void Update()
         {
+            cannonStats = CannonManager.Instance.GetCannonStats();
             GameObject closestEnemy = CannonManager.Instance.GetClosestEnemy();
             if (closestEnemy != null && canShoot)
             {

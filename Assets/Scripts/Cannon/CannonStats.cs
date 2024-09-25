@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
+
 
 [CreateAssetMenu(fileName = "New Cannon Stat", menuName = "New Cannon Stat", order = 1)]
 public class CannonStats : ScriptableObject
@@ -8,12 +10,22 @@ public class CannonStats : ScriptableObject
     [SerializeField] private int maxHealth = 10;
     [SerializeField] private int tempHealth;
     [SerializeField] private int damage = 10;
-    [SerializeField] private float projectileSpeed = 5f;
+    [SerializeField] private int circleCorners = 720;
+    [SerializeField] private float projectileSpeed = 3f;
     [SerializeField] private float radius = 4f;
     [SerializeField] private float shootingSpeed = 1f;
-    [SerializeField] private int circleCorners = 360;
     [SerializeField] private GameObject projectilePrefab;
     [SerializeField] private LayerMask enemyLayer;
+
+    private LineRenderer line;
+
+    public void InitializeLineRenderer(LineRenderer lineRenderer)
+    {
+        line = lineRenderer;
+        line.positionCount = circleCorners + 1;
+        line.useWorldSpace = false;
+        CreateCircle();
+    }
 
     public int GetTempHealth()
     {
@@ -53,6 +65,7 @@ public class CannonStats : ScriptableObject
     public void SetRadius(float newRadius)
     {
         radius = newRadius;
+        InitializeLineRenderer(line);
     }
 
     public float GetShootingSpeed()
@@ -62,7 +75,11 @@ public class CannonStats : ScriptableObject
 
     public void SetShootingSpeed(float newShootingSpeed)
     {
-        shootingSpeed = newShootingSpeed;
+        shootingSpeed -= newShootingSpeed;
+        if (shootingSpeed <= 0.1f)
+        {
+            shootingSpeed = 0.1f;
+        }
     }
 
     public int GetCircleCorners()
@@ -98,5 +115,25 @@ public class CannonStats : ScriptableObject
     public LayerMask GetEnemyLayer()
     {
         return enemyLayer;
+    }
+
+    // In game
+    void CreateCircle()
+    {
+        if (line == null)
+        {
+            Debug.LogError("LineRenderer is not initialized.");
+            return;
+        }
+
+        Debug.Log("CreateCircle called"); // Debug log
+        float angle = 0f;
+        for (int i = 0; i < circleCorners + 1; i++)
+        {
+            float x = Mathf.Sin(Mathf.Deg2Rad * angle) * radius;
+            float y = Mathf.Cos(Mathf.Deg2Rad * angle) * radius;
+            line.SetPosition(i, new Vector3(x, y, 0));
+            angle += 360f / circleCorners;
+        }
     }
 }

@@ -32,6 +32,7 @@ namespace Cannon
 
         private void Start()
         {
+            //cannonStats.ResetValuesToInitial();
             cannonObject = GameObject.Find("Cannon");
             buttonManager = GameObject.Find("ButtonManager").GetComponent<ButtonManager>();
             radius = cannonStats.GetRadius();
@@ -41,7 +42,6 @@ namespace Cannon
         private void Update()
         {
             closestEnemy = CalculateClosestEnemy();
-            
         }
 
         public CannonStats GetCannonStats()

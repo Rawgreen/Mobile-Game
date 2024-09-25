@@ -19,9 +19,9 @@ public class ButtonManager : MonoBehaviour
 
         InitializeButton("DamageUpgrade", 1f, 5f);
         InitializeButton("HealthUpgrade", 1f, 5f);
-        InitializeButton("RadiusUpgrade", 0.5f, 2.5f);
+        InitializeButton("RadiusUpgrade", 0.05f, 0.1f);
         InitializeButton("ProjectileVelocityUpgrade", 0.1f, 1.0f);
-        InitializeButton("ShootingRateUpgrade", 0.1f, 0.5f);
+        InitializeButton("ShootingRateUpgrade", 0.01f, 0.05f);
     }
 
     private void InitializeButton(string buttonName, float minValue, float maxValue)
@@ -40,7 +40,8 @@ public class ButtonManager : MonoBehaviour
 
     private float GenerateRandomValue(float from, float to)
     {
-        return Random.Range(from, to);
+        float randomValue = Random.Range(from, to);
+        return Mathf.Round(randomValue * 100f) / 100f;
     }
 
     public void UpgradeDamage()
@@ -59,7 +60,7 @@ public class ButtonManager : MonoBehaviour
 
     public void UpgradeProjectileSpeed()
     {
-        UpgradeStat("ProjectileSpeedUpgrade", () => cannonStats.SetProjectileSpeed(cannonStats.GetProjectileSpeed() + upgradeAmounts["ProjectileSpeedUpgrade"]));
+        UpgradeStat("ProjectileVelocityUpgrade", () => cannonStats.SetProjectileSpeed(cannonStats.GetProjectileSpeed() + upgradeAmounts["ProjectileVelocityUpgrade"]));
     }
 
     public void UpgradeRadius()
@@ -71,7 +72,7 @@ public class ButtonManager : MonoBehaviour
     {
         // => is a lambda expression. It is a way to pass a function as a parameter.
         // () means no parameters used in the lambda expression.
-        UpgradeStat("ShootingSpeedUpgrade", () => cannonStats.SetShootingSpeed(cannonStats.GetShootingSpeed() + upgradeAmounts["ShootingSpeedUpgrade"]));
+        UpgradeStat("ShootingRateUpgrade", () => cannonStats.SetShootingSpeed(cannonStats.GetShootingSpeed() + upgradeAmounts["ShootingRateUpgrade"]));
     }
 
     private void UpgradeStat(string buttonName, System.Action upgradeAction)
@@ -91,9 +92,9 @@ public class ButtonManager : MonoBehaviour
         {
             case "DamageUpgrade": return cannonStats.GetDamage();
             case "HealthUpgrade": return cannonStats.GetTempHealth();
-            case "ProjectileSpeedUpgrade": return cannonStats.GetProjectileSpeed();
+            case "ProjectileVelocityUpgrade": return cannonStats.GetProjectileSpeed();
             case "RadiusUpgrade": return cannonStats.GetRadius();
-            case "ShootingSpeedUpgrade": return cannonStats.GetShootingSpeed();
+            case "ShootingRateUpgrade": return cannonStats.GetShootingSpeed();
             default: return 0;
         }
     }
@@ -104,9 +105,9 @@ public class ButtonManager : MonoBehaviour
         {
             case "DamageUpgrade":
             case "HealthUpgrade": return 1f;
-            case "RadiusUpgrade": return 0.5f;
-            case "ProjectileSpeedUpgrade": return 0.1f;
-            case "ShootingSpeedUpgrade": return 0.1f;
+            case "RadiusUpgrade": return 0.05f;
+            case "ProjectileVelocityUpgrade": return 0.1f;
+            case "ShootingRateUpgrade": return 0.01f;
             default: return 0;
         }
     }
@@ -116,10 +117,10 @@ public class ButtonManager : MonoBehaviour
         switch (buttonName)
         {
             case "DamageUpgrade":
-            case "HealthUpgrade": return 5f;
-            case "RadiusUpgrade": return 2.5f;
-            case "ProjectileSpeedUpgrade": return 1.0f;
-            case "ShootingSpeedUpgrade": return 0.5f;
+            case "HealthUpgrade": return 2f;
+            case "RadiusUpgrade": return 0.1f;
+            case "ProjectileVelocityUpgrade": return 1.0f;
+            case "ShootingRateUpgrade": return 0.05f;
             default: return 0;
         }
     }
@@ -132,7 +133,7 @@ public class ButtonManager : MonoBehaviour
         }
         else
         {
-            buttonText.text = $"+{value:F1}";
+            buttonText.text = $"+{value:F2}";
         }
     }
 

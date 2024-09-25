@@ -21,6 +21,11 @@ namespace Cannon
             cannonStats.SetTempHealth(tempHealth);
         }
 
+        private void Update()
+        {
+            cannonStats = CannonManager.Instance.GetCannonStats();
+        }
+
         public void TakeDamage(int damage)
         {
             tempHealth -= damage;
