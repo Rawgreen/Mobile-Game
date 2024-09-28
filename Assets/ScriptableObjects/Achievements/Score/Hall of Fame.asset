@@ -16,3 +16,4 @@ MonoBehaviour:
   description: Earn a place in the leaderboard by reaching an all-time high score
     of 10,000.
   isUnlocked: 0
+  icon: {fileID: 21300000, guid: d3d110d4f79559940bad29fb46e859f3, type: 3}

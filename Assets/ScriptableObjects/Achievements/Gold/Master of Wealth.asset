@@ -16,3 +16,4 @@ MonoBehaviour:
   description: Earn 500,000 gold throughout your journey and prove that no enemy
     can outmatch your resources.
   isUnlocked: 0
+  icon: {fileID: 1867956211, guid: 9c68175c27d948b4fa4ef5f6f2721332, type: 3}

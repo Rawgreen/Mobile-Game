@@ -16,3 +16,4 @@ MonoBehaviour:
   description: Achieve an all-time high score of 50,000 and show the world your unbeatable
     strategy.
   isUnlocked: 0
+  icon: {fileID: 21300000, guid: 447c89474c858ce4a97ee0db009122c1, type: 3}

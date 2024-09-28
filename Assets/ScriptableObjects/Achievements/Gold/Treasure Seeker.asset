@@ -15,3 +15,4 @@ MonoBehaviour:
   title: Treasure Seeker
   description: Accumulate 1,000 gold in a single match and start building your fortune.
   isUnlocked: 0
+  icon: {fileID: 895696264, guid: 9c68175c27d948b4fa4ef5f6f2721332, type: 3}

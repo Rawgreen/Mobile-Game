@@ -16,3 +16,4 @@ MonoBehaviour:
   description: Set an unstoppable all-time high score of 100,000 and become a true
     tower defense legend.
   isUnlocked: 0
+  icon: {fileID: 21300000, guid: 2738f774853874a40af6f75a708f508a, type: 3}

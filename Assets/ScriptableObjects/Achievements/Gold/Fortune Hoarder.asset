@@ -16,3 +16,4 @@ MonoBehaviour:
   description: Stockpile 50,000 gold over time to secure your reign as the wealthiest
     defender.
   isUnlocked: 0
+  icon: {fileID: 1329888072, guid: 9c68175c27d948b4fa4ef5f6f2721332, type: 3}

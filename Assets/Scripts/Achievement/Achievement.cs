@@ -6,6 +6,7 @@ public class Achievement : ScriptableObject
     public string title;
     public string description;
     public bool isUnlocked;
+    public Sprite icon;
 
     public void Unlock()
     {

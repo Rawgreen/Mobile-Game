@@ -126,7 +126,6 @@ public class CannonStats : ScriptableObject
             return;
         }
 
-        Debug.Log("CreateCircle called"); // Debug log
         float angle = 0f;
         for (int i = 0; i < circleCorners + 1; i++)
         {

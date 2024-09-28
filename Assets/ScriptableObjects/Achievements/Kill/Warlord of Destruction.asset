@@ -16,3 +16,4 @@ MonoBehaviour:
   description: Amass a total kill count of 10,000 enemies and show your dominance
     in battle.
   isUnlocked: 0
+  icon: {fileID: 401612004, guid: 504b5ae522d305f469dd710c50d6ca2d, type: 3}

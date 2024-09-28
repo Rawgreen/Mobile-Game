@@ -15,3 +15,4 @@ MonoBehaviour:
   title: Army Annihilator
   description: Reach 5,000 total kills and crush waves of enemies with precision.
   isUnlocked: 0
+  icon: {fileID: -662910364, guid: 504b5ae522d305f469dd710c50d6ca2d, type: 3}

@@ -15,3 +15,4 @@ MonoBehaviour:
   title: King of Riches
   description: Collect 100,000 gold in your lifetime and build an empire of towers.
   isUnlocked: 0
+  icon: {fileID: 1551004215, guid: 9c68175c27d948b4fa4ef5f6f2721332, type: 3}

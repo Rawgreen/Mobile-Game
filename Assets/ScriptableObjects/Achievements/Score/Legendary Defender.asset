@@ -16,3 +16,4 @@ MonoBehaviour:
   description: Break the 25,000 all-time high score mark and secure your legacy as
     a top defender.
   isUnlocked: 0
+  icon: {fileID: 21300000, guid: dd0e1a472e63ce34aa20dc713f37656a, type: 3}

@@ -16,3 +16,4 @@ MonoBehaviour:
   description: Eliminate 50,000 enemies in total, proving you're an unstoppable force
     in the tower defense world.
   isUnlocked: 0
+  icon: {fileID: 748572091, guid: 504b5ae522d305f469dd710c50d6ca2d, type: 3}

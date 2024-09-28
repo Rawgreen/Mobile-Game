@@ -16,3 +16,4 @@ MonoBehaviour:
   description: Earn a total of 10,000 gold across all matches by mastering resource
     management.
   isUnlocked: 0
+  icon: {fileID: 1653103651, guid: 9c68175c27d948b4fa4ef5f6f2721332, type: 3}
