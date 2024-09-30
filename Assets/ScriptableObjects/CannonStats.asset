@@ -16,7 +16,7 @@ MonoBehaviour:
   tempHealth: 0
   damage: 10
   circleCorners: 720
-  projectileSpeed: 4
+  projectileSpeed: 3
   radius: 4
   shootingSpeed: 2
   projectilePrefab: {fileID: 2153347735406435076, guid: c447467769fbe9549a078a32b3409018, type: 3}

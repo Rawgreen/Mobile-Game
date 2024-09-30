@@ -9,6 +9,8 @@ namespace Miscellaneous
     {
         public static GameManager Instance { get; private set; }
 
+        private ButtonManager buttonManager;
+
         [SerializeField] private int score = 0;
         [SerializeField] private int allTimeScore = 0;
         [SerializeField] private int enemiesKilled = 0;
@@ -31,10 +33,33 @@ namespace Miscellaneous
 
         private void Start()
         {
+            buttonManager = ButtonManager.Instance;
+
             //TODO: remove after testing
             // Resets achievements every time the game starts
             AchievementManager.Instance.ResetAchievements();
             AchievementManager.Instance.OnAchievementUnlocked += OnAchievementUnlocked;
+        }
+
+        public void GameOver()
+        {
+            Debug.Log("Game Over");
+        }
+
+        public void MakeUpgrade(string buttonName)
+        {
+            int currentCost = buttonManager.GetUpgradeCost(buttonName);
+            if (golds >= currentCost)
+            {
+                // Deduct the cost from the golds.
+                golds -= currentCost;
+                // Update the UI to reflect the new gold amount.
+                buttonManager.UpdateCoinsLeftText();
+                // Update next upgrade cost to 50% more than the current cost.
+                buttonManager.SetNextUpgradeCost(buttonName, (int)(currentCost * 1.5f));
+                // Update button interactivity
+                buttonManager.UpdateButtonStatus();
+            }
         }
 
         private void OnDestroy()
@@ -49,9 +74,9 @@ namespace Miscellaneous
             return;
         }
 
-        public void GameOver()
+        public int GetGolds()
         {
-            Debug.Log("Game Over");
+            return golds;
         }
 
         public void KillTrackerUp(int pointsWorth, int goldsWorth)
@@ -59,6 +84,10 @@ namespace Miscellaneous
             enemiesKilled++;
             totalEnemiesKilled++;
             golds += goldsWorth;
+            // Update the UI to reflect the new gold amount.
+            buttonManager.UpdateCoinsLeftText();
+            // Update button interactivity
+            buttonManager.UpdateButtonStatus();
             totalGoldsEarned += goldsWorth;
             score += pointsWorth;
             if (score >= allTimeScore)

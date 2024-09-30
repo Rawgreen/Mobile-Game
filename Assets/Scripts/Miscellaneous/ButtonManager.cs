@@ -1,135 +1,226 @@
-using Cannon;
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Cannon;
+using Miscellaneous;
+using Random = UnityEngine.Random;
 
 public class ButtonManager : MonoBehaviour
 {
+    public static ButtonManager Instance { get; private set; }
+
     private CannonStats cannonStats;
+
     private GameObject achievementContainer;
     [SerializeField] private GameObject achievementPrefab;
     [SerializeField] private GameObject achievementScrollFrame;
+    [SerializeField] private TextMeshProUGUI coinsLeftText;
+    [SerializeField] private TextMeshProUGUI healthLeftText;
 
+    public Dictionary<string, int> upgradeCosts = new Dictionary<string, int>();
+    private Dictionary<string, TextMeshProUGUI> UpgradeCostTextOnButtons = new Dictionary<string, TextMeshProUGUI>();
     private Dictionary<string, Button> buttons = new Dictionary<string, Button>();
-    private Dictionary<string, TextMeshProUGUI> buttonTexts = new Dictionary<string, TextMeshProUGUI>();
     private Dictionary<string, float> upgradeAmounts = new Dictionary<string, float>();
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     private void Start()
     {
         cannonStats = CannonManager.Instance.GetCannonStats();
         achievementContainer = FindChildRecursive(achievementScrollFrame.transform, "Content");
 
-        InitializeButton("DamageUpgrade", 1f, 5f, true);
-        InitializeButton("HealthUpgrade", 1f, 5f, true);
-        InitializeButton("RadiusUpgrade", 0.05f, 0.1f, true);
-        InitializeButton("ProjectileVelocityUpgrade", 0.1f, 1.0f, true);
-        InitializeButton("ShootingRateUpgrade", 0.01f, 0.05f, true);
-        InitializeButton("Achievements", 0, 0, true);
+        InitializeButton("DamageUpgrade", 10, 1f, 5f, true);
+        InitializeButton("HealthUpgrade", 10, 1f, 5f, true);
+        InitializeButton("RadiusUpgrade", 10, 0.05f, 0.1f, true);
+        InitializeButton("ProjectileVelocityUpgrade", 10, 0.1f, 1.0f, true);
+        InitializeButton("ShootingRateUpgrade", 10, 0.01f, 0.05f, true);
+        InitializeButton("Achievements", 0, 0, 0, true);
+
+        UpdateCoinsLeftText();
     }
 
-    private float GenerateRandomValue(float from, float to)
+    public void UpgradeDamage()
     {
-        float randomValue = Random.Range(from, to);
-        return Mathf.Round(randomValue * 100f) / 100f;
+        GameManager.Instance.MakeUpgrade("DamageUpgrade");
+        UpgradeStat("DamageUpgrade", () => cannonStats.SetDamage(cannonStats.GetDamage() + (int)upgradeAmounts["DamageUpgrade"]));
     }
 
-    private void UpdateValueText(string buttonName, TextMeshProUGUI buttonText, float value)
+    public void UpgradeHealth()
     {
-        if (buttonName == "DamageUpgrade" || buttonName == "HealthUpgrade")
+        GameManager.Instance.MakeUpgrade("HealthUpgrade");
+        UpgradeStat("HealthUpgrade", () =>
         {
-            buttonText.text = $"+{(int)value}";
+            int newHealth = cannonStats.GetTempHealth() + (int)upgradeAmounts["HealthUpgrade"];
+            cannonStats.SetTempHealth(newHealth);
+            cannonStats.SetMaxHealth(cannonStats.GetMaxHealth() + (int)upgradeAmounts["HealthUpgrade"]);
+            UpdateHealthLeft(cannonStats.GetTempHealth());
+        });
+    }
+
+    public void UpgradeProjectileSpeed()
+    {
+        GameManager.Instance.MakeUpgrade("ProjectileVelocityUpgrade");
+        UpgradeStat("ProjectileVelocityUpgrade", () => cannonStats.SetProjectileSpeed(cannonStats.GetProjectileSpeed() + upgradeAmounts["ProjectileVelocityUpgrade"]));
+    }
+
+    public void UpgradeRadius()
+    {
+        GameManager.Instance.MakeUpgrade("RadiusUpgrade");
+        UpgradeStat("RadiusUpgrade", () => cannonStats.SetRadius(cannonStats.GetRadius() + upgradeAmounts["RadiusUpgrade"]));
+    }
+
+    public void UpgradeShootingSpeed()
+    {
+        GameManager.Instance.MakeUpgrade("ShootingRateUpgrade");
+        UpgradeStat("ShootingRateUpgrade", () => cannonStats.SetShootingSpeed(cannonStats.GetShootingSpeed() + upgradeAmounts["ShootingRateUpgrade"]));
+    }
+
+    public void UpdateButtonStatus()
+    {
+        int currentGolds = GameManager.Instance.GetGolds();
+
+        foreach (var buttonEntry in buttons)
+        {
+            if (buttonEntry.Key == "Achievements")
+            {
+                continue;
+            }
+            string buttonName = buttonEntry.Key;
+            Button button = buttonEntry.Value;
+            int upgradeCost = upgradeCosts[buttonName];
+
+            button.interactable = currentGolds >= upgradeCost;
+        }
+    }
+
+    public void UpdateCoinsLeftText()
+    {
+        int currentGolds = GameManager.Instance.GetGolds();
+        if (currentGolds >= 1000000)
+        {
+            coinsLeftText.text = $"{currentGolds / 1000000:F1}M";
+        }
+        else if (currentGolds >= 1000)
+        {
+            coinsLeftText.text = $"{currentGolds / 1000:F1}K";
         }
         else
         {
-            buttonText.text = $"+{value:F2}";
+            coinsLeftText.text = $"{currentGolds}";
+            coinsLeftText.text = currentGolds.ToString();
         }
     }
 
-    private TextMeshProUGUI GetTextComponent(Button button)
+    private void UpdateHealthLeft(int currentHealth)
     {
-        // Try to find the TextMeshProUGUI component in the button's children
-        TextMeshProUGUI textComponent = button.GetComponentInChildren<TextMeshProUGUI>();
-        return textComponent;
-    }
-
-    private void InitializeButton(string buttonName, float minValue = 0.0f, float maxValue = 0.0f, bool isUpgrade = false)
-    {
-        Button button = GameObject.Find(buttonName)?.GetComponent<Button>();
-        if (button == null)
+        if (currentHealth >= 1000000)
         {
-            Debug.LogError($"Button '{buttonName}' not found.");
-            return;
+            healthLeftText.text = $"{currentHealth / 1000000:F1}M";
         }
-
-        buttons[buttonName] = button;
-
-        TextMeshProUGUI buttonText = GetTextComponent(button);
-        if (buttonText != null)
+        else if (currentHealth >= 1000)
         {
-            buttonTexts[buttonName] = buttonText;
-
-            float upgradeAmount = GenerateRandomValue(minValue, maxValue);
-            upgradeAmounts[buttonName] = upgradeAmount;
-
-            UpdateValueText(buttonName, buttonText, upgradeAmount);
+            healthLeftText.text = $"{currentHealth / 1000:F1}K";
         }
         else
         {
-            Debug.LogWarning($"Button '{buttonName}' does not have a text component.");
+            healthLeftText.text = currentHealth.ToString();
         }
     }
 
-    // Recursive method to find a child object by name
-    private GameObject FindChildRecursive(Transform parent, string childName)
+    private void UpgradeStat(string buttonName, System.Action upgradeAction)
     {
-        foreach (Transform child in parent)
+        upgradeAction.Invoke();
+        bool isIntegerUpgrade = buttonName == "DamageUpgrade" || buttonName == "HealthUpgrade";
+        float newUpgradeAmount = GenerateRandomValue(GetMinValue(buttonName), GetMaxValue(buttonName), isIntegerUpgrade);
+        upgradeAmounts[buttonName] = newUpgradeAmount;
+
+        TextMeshProUGUI upgradeCostText = UpgradeCostTextOnButtons[buttonName];
+        UpdateValueText(upgradeCostText, newUpgradeAmount);
+
+        // Update the cost text
+        if (upgradeCosts.ContainsKey(buttonName))
         {
-            if (child.name == childName)
-            {
-                return child.gameObject;
-            }
-
-            GameObject result = FindChildRecursive(child, childName);
-            if (result != null)
-            {
-                return result;
-            }
+            TextMeshProUGUI costText = GetButtonTextComponent(buttons[buttonName], "UpgradeCost");
+            UpdateValueText(costText, upgradeCosts[buttonName]); // Access the Item1 of the tuple
         }
-
-        return null;
     }
 
-    public void ShowAchievements()
+    private float GetStatValue(string buttonName)
+    {
+        switch (buttonName)
+        {
+            case "DamageUpgrade": return cannonStats.GetDamage();
+            case "HealthUpgrade": return cannonStats.GetTempHealth();
+            case "ProjectileVelocityUpgrade": return cannonStats.GetProjectileSpeed();
+            case "RadiusUpgrade": return cannonStats.GetRadius();
+            case "ShootingRateUpgrade": return cannonStats.GetShootingSpeed();
+            default: return 0;
+        }
+    }
+
+    private float GetMinValue(string buttonName)
+    {
+        switch (buttonName)
+        {
+            case "DamageUpgrade":
+            case "HealthUpgrade": return 1f;
+            case "RadiusUpgrade": return 0.05f;
+            case "ProjectileVelocityUpgrade": return 0.1f;
+            case "ShootingRateUpgrade": return 0.01f;
+            default: return 0;
+        }
+    }
+
+    private float GetMaxValue(string buttonName)
+    {
+        switch (buttonName)
+        {
+            case "DamageUpgrade":
+            case "HealthUpgrade": return 2f;
+            case "RadiusUpgrade": return 0.1f;
+            case "ProjectileVelocityUpgrade": return 1.0f;
+            case "ShootingRateUpgrade": return 0.05f;
+            default: return 0;
+        }
+    }
+
+    private void ShowAchievements()
     {
         bool isActive = !achievementScrollFrame.activeSelf;
         achievementScrollFrame.SetActive(isActive);
         if (isActive)
         {
-            // Pause the game
             Time.timeScale = 0;
             PopulateAchievements();
         }
         else
         {
-            // Resume the game
             Time.timeScale = 1;
         }
     }
 
     private void PopulateAchievements()
     {
-        // Clear existing achievements
         foreach (Transform child in achievementContainer.transform)
         {
             Destroy(child.gameObject);
         }
 
-        // Get achievements from AchievementManager
         List<Achievement> achievements = AchievementManager.Instance.GetAchievements();
 
-        // Instantiate each achievement
         foreach (Achievement achievement in achievements)
         {
             GameObject achievementInstance = Instantiate(achievementPrefab, achievementContainer.transform);
@@ -174,84 +265,108 @@ public class ButtonManager : MonoBehaviour
         }
     }
 
-    public void UpgradeDamage()
+    private void UpdateValueText(TextMeshProUGUI itemText, float value)
     {
-        UpgradeStat("DamageUpgrade", () => cannonStats.SetDamage(cannonStats.GetDamage() + (int)upgradeAmounts["DamageUpgrade"]));
-    }
-
-    public void UpgradeHealth()
-    {
-        UpgradeStat("HealthUpgrade", () =>
+        if (itemText.name == "UpgradeCost")
         {
-            cannonStats.SetTempHealth(cannonStats.GetTempHealth() + (int)upgradeAmounts["HealthUpgrade"]);
-            cannonStats.SetMaxHealth(cannonStats.GetMaxHealth() + (int)upgradeAmounts["HealthUpgrade"]);
-        });
-    }
-
-    public void UpgradeProjectileSpeed()
-    {
-        UpgradeStat("ProjectileVelocityUpgrade", () => cannonStats.SetProjectileSpeed(cannonStats.GetProjectileSpeed() + upgradeAmounts["ProjectileVelocityUpgrade"]));
-    }
-
-    public void UpgradeRadius()
-    {
-        UpgradeStat("RadiusUpgrade", () => cannonStats.SetRadius(cannonStats.GetRadius() + upgradeAmounts["RadiusUpgrade"]));
-    }
-
-    public void UpgradeShootingSpeed()
-    {
-        // => is a lambda expression. It is a way to pass a function as a parameter.
-        // () means no parameters used in the lambda expression.
-        UpgradeStat("ShootingRateUpgrade", () => cannonStats.SetShootingSpeed(cannonStats.GetShootingSpeed() + upgradeAmounts["ShootingRateUpgrade"]));
-    }
-
-    private void UpgradeStat(string buttonName, System.Action upgradeAction)
-    {
-        // Executes the lambda expression that passed into it.
-        upgradeAction.Invoke();
-
-        Debug.Log($"{buttonName} upgraded by {upgradeAmounts[buttonName]}. New value: {GetStatValue(buttonName)}");
-        float newUpgradeAmount = GenerateRandomValue(GetMinValue(buttonName), GetMaxValue(buttonName));
-        upgradeAmounts[buttonName] = newUpgradeAmount;
-        UpdateValueText(buttonName, buttonTexts[buttonName], newUpgradeAmount);
-    }
-
-    private float GetStatValue(string buttonName)
-    {
-        switch (buttonName)
+            if (value >= 1000000)
+            {
+                itemText.text = $"{value / 1000000:F1}M";
+            }
+            else if (value >= 1000)
+            {
+                itemText.text = $"{value / 1000:F1}K";
+            }
+            else
+            {
+                itemText.text = $"{value}";
+            }
+        }
+        else
         {
-            case "DamageUpgrade": return cannonStats.GetDamage();
-            case "HealthUpgrade": return cannonStats.GetTempHealth();
-            case "ProjectileVelocityUpgrade": return cannonStats.GetProjectileSpeed();
-            case "RadiusUpgrade": return cannonStats.GetRadius();
-            case "ShootingRateUpgrade": return cannonStats.GetShootingSpeed();
-            default: return 0;
+            itemText.text = $"+{value:F2}";
         }
     }
 
-    private float GetMinValue(string buttonName)
+    private TextMeshProUGUI GetButtonTextComponent(Button button, string componentName)
     {
-        switch (buttonName)
+        TextMeshProUGUI[] components = button.GetComponentsInChildren<TextMeshProUGUI>();
+        foreach (TextMeshProUGUI component in components)
         {
-            case "DamageUpgrade":
-            case "HealthUpgrade": return 1f;
-            case "RadiusUpgrade": return 0.05f;
-            case "ProjectileVelocityUpgrade": return 0.1f;
-            case "ShootingRateUpgrade": return 0.01f;
-            default: return 0;
+            if (component.name == componentName)
+            {
+                return component;
+            }
+        }
+        return null;
+    }
+
+    private void InitializeButton(string buttonName, int upgradeCost, float minValue = 0.0f, float maxValue = 0.0f, bool isUpgrade = false)
+    {
+        Button button = GameObject.Find(buttonName)?.GetComponent<Button>();
+        if (button == null)
+        {
+            Debug.LogError($"Button '{buttonName}' not found.");
+            return;
+        }
+
+        buttons[buttonName] = button;
+
+        TextMeshProUGUI upgradeCostText = GetButtonTextComponent(button, "UpgradeValue");
+        if (upgradeCostText != null)
+        {
+            UpgradeCostTextOnButtons[buttonName] = upgradeCostText;
+
+            bool isIntegerUpgrade = buttonName == "DamageUpgrade" || buttonName == "HealthUpgrade";
+            float upgradeAmount = GenerateRandomValue(minValue, maxValue, isIntegerUpgrade);
+            upgradeAmounts[buttonName] = upgradeAmount;
+
+            UpdateValueText(upgradeCostText, upgradeAmount);
+        }
+
+        TextMeshProUGUI costText = GetButtonTextComponent(button, "UpgradeCost");
+        if (upgradeCost != 0)
+        {
+            upgradeCosts[buttonName] = upgradeCost; // Assign a tuple (int, bool)
+            UpdateValueText(costText, upgradeCosts[buttonName]); // Access the Item1 of the tuple
         }
     }
 
-    private float GetMaxValue(string buttonName)
+    private GameObject FindChildRecursive(Transform parent, string childName)
     {
-        switch (buttonName)
+        foreach (Transform child in parent)
         {
-            case "DamageUpgrade":
-            case "HealthUpgrade": return 2f;
-            case "RadiusUpgrade": return 0.1f;
-            case "ProjectileVelocityUpgrade": return 1.0f;
-            case "ShootingRateUpgrade": return 0.05f;
-            default: return 0;
+            if (child.name == childName)
+            {
+                return child.gameObject;
+            }
+
+            GameObject result = FindChildRecursive(child, childName);
+            if (result != null)
+            {
+                return result;
+            }
         }
+        return null;
+    }
+
+    private float GenerateRandomValue(float from, float to, bool isInteger = false)
+    {
+        if (isInteger)
+        {
+            return Random.Range(1, 3);
+        }
+        float randomValue = Random.Range(from, to);
+        return Mathf.Round(randomValue * 100f) / 100f;
+    }
+
+    public int GetUpgradeCost(string buttonName)
+    {
+        return upgradeCosts[buttonName];
+    }
+
+    public void SetNextUpgradeCost(string buttonName, int newCost)
+    {
+        upgradeCosts[buttonName] = newCost;
     }
 }
