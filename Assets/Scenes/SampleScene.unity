@@ -4554,6 +4554,10 @@ PrefabInstance:
       propertyPath: damageUpgradeButton
       value: 
       objectReference: {fileID: 396746731}
+    - target: {fileID: 2812175064341849042, guid: df60ee2190d4a7543aaecb34c6e1c9cd, type: 3}
+      propertyPath: alternativeProjectilePrefab
+      value: 
+      objectReference: {fileID: 2153347735406435076, guid: c447467769fbe9549a078a32b3409018, type: 3}
     - target: {fileID: 3853055828452966605, guid: df60ee2190d4a7543aaecb34c6e1c9cd, type: 3}
       propertyPath: m_LocalPosition.x
       value: -10

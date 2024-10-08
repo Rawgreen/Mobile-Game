@@ -17,6 +17,14 @@ namespace Cannon
         private ButtonManager buttonManager;
         private GameObject cannonObject;
 
+        [SerializeField] private int alternativeHealth = 10;
+        [SerializeField] private int alternativeDamage = 10;
+        [SerializeField] private int alternativeCircleCorners = 720;
+        [SerializeField] private float alternativeProjectileSpeed = 3f;
+        [SerializeField] private float alternativeRadius = 4f;
+        [SerializeField] private float alternativeShootingSpeed = 1f;
+        [SerializeField] private GameObject alternativeProjectilePrefab;
+
         private void Awake()
         {
             if (Instance == null)
@@ -34,6 +42,9 @@ namespace Cannon
         {
             //cannonStats.ResetValuesToInitial();
             cannonObject = GameObject.Find("Cannon");
+
+            // reset the stats to the default values after each playthrough
+            cannonStats.ResetStats(alternativeHealth, alternativeDamage, alternativeCircleCorners, alternativeProjectileSpeed, alternativeRadius, alternativeShootingSpeed, alternativeProjectilePrefab);
             buttonManager = GameObject.Find("ButtonManager").GetComponent<ButtonManager>();
             radius = cannonStats.GetRadius();
             enemyLayer = cannonStats.GetEnemyLayer();

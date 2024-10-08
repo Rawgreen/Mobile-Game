@@ -19,12 +19,15 @@ public class CannonStats : ScriptableObject
 
     private LineRenderer line;
 
-    public void InitializeLineRenderer(LineRenderer lineRenderer)
+    public void ResetStats(int altHealth = 10, int altDamage = 10, int altCircleCorners = 720, float altProjectileSpeed = 3f, float altRadius = 4f, float altShootingSpeed = 1f, GameObject altProjectilePrefab = null)
     {
-        line = lineRenderer;
-        line.positionCount = circleCorners + 1;
-        line.useWorldSpace = false;
-        CreateCircle();
+        this.maxHealth = altHealth;
+        this.damage = altDamage;
+        this.circleCorners = altCircleCorners;
+        this.projectileSpeed = altProjectileSpeed;
+        this.radius = altRadius;
+        this.shootingSpeed = altShootingSpeed;
+        this.projectilePrefab = altProjectilePrefab;
     }
 
     public int GetTempHealth()
@@ -135,4 +138,13 @@ public class CannonStats : ScriptableObject
             angle += 360f / circleCorners;
         }
     }
+
+    public void InitializeLineRenderer(LineRenderer lineRenderer)
+    {
+        line = lineRenderer;
+        line.positionCount = circleCorners + 1;
+        line.useWorldSpace = false;
+        CreateCircle();
+    }
+
 }
