@@ -17,12 +17,5 @@ namespace Miscellaneous
             // Initialize the LineRenderer in CannonStats
             cannonStats.InitializeLineRenderer(line);
         }
-
-        // Editor
-        private void OnDrawGizmosSelected()
-        {
-            Gizmos.color = Color.green;
-            Gizmos.DrawWireSphere(transform.position, cannonStats.GetRadius() / 2.5f);
-        }
     }
 }

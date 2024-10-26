@@ -15,6 +15,7 @@ namespace Miscellaneous
 
         private Dictionary<string, int> enemyCounts = new Dictionary<string, int>();
 
+        [Header ("Essentials")]
         [SerializeField] private EnemyStats enemyStats;
         [SerializeField] private GameObject[] enemyPrefabs;
         [SerializeField] private bool isSpawning = true;

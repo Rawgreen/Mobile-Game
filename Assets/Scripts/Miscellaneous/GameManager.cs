@@ -11,6 +11,7 @@ namespace Miscellaneous
 
         private ButtonManager buttonManager;
 
+        [Header ("Accumulating Variables")]
         [SerializeField] private int score = 0;
         [SerializeField] private int allTimeScore = 0;
         [SerializeField] private int enemiesKilled = 0;

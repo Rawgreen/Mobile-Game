@@ -17,6 +17,7 @@ namespace Cannon
         private ButtonManager buttonManager;
         private GameObject cannonObject;
 
+        [Header("Reset Values")]
         [SerializeField] private int alternativeHealth = 10;
         [SerializeField] private int alternativeDamage = 10;
         [SerializeField] private int alternativeCircleCorners = 720;

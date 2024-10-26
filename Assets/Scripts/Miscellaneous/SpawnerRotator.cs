@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SpawnerRotator : MonoBehaviour
 {
+    [Header("Rotation Variables")]
     [SerializeField] private Transform centerPoint;
     [SerializeField] private float radius = 5.0f;
     [SerializeField] private float rotationSpeed = 1.0f;
